@@ -37,8 +37,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
                 "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                 "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 
-        val newMember = Member(user.id ?: -1,
-            user.kakaoAccount?.profile?.nickname ?: "default",
+        val newMember = Member(user.kakaoAccount?.profile?.nickname ?: "default",
             user.kakaoAccount?.email ?: "@.",
             user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
             0)

@@ -23,8 +23,6 @@ data class QuizData(
 )
 
 data class Member(
-    @SerializedName("id")
-    var id: Long,
     @SerializedName("nickname")
     var nickName: String,
     @SerializedName("email")
