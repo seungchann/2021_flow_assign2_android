@@ -38,7 +38,7 @@ class QuizFragment : Fragment() {
             Log.d(TAG, "onViewCreated: $it")
             // Update UI
             answerTextView.text = it.get(0).video_title
-            Glide.with(this).load(viewModel.CurrentUser.profileURL).into(profileImageView)
+//            Glide.with(this).load(viewModel.CurrentUser.profileURL).into(profileImageView)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
 

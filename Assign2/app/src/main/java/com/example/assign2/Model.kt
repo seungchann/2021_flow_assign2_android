@@ -1,6 +1,7 @@
 package com.example.assign2
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class QuizData(
@@ -31,4 +32,4 @@ data class Member(
     var profileURL: String,
     @SerializedName("highest_score")
     var highestScore: Int,
-)
+): Serializable

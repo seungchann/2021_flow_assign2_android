@@ -1,5 +1,6 @@
 package com.example.assign2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mCallback: (OAuthToken?, Throwable?) -> Unit
 
     lateinit var viewModel: MainViewModel
+    lateinit var currentUser: Member
 
     private val retrofitService = RetrofitService.getInstance()
 
@@ -38,13 +40,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this, Observer { })
         viewModel.getAllQuizDatas()
         makeKakaoCallback()
-        checkKakaoLogin()
+
+        kakaoButton.setOnClickListener {
+            checkKakaoLogin()
+        }
 
         myButton.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.constraintLayout, QuizFragment())
-                .addToBackStack(".MainActivity")
-                .commit()
+
         }
     }
 
@@ -55,7 +57,10 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "로그인 성공 ${token.accessToken}")
                 UserApiClient.instance.me { user, error ->
                     if (error != null) { Log.e(TAG, "사용자 정보 요청 실패", error) }
-                    else if (user != null) { viewModel.makeMemberFromKakaoDB(user) }
+                    else if (user != null) {
+                        makeMemberFromKakaoDB(user)
+                        moveToStartActivity()
+                    }
                 }
             }
         }
@@ -74,7 +79,10 @@ class MainActivity : AppCompatActivity() {
                     //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
                     UserApiClient.instance.me { user, error ->
                         if (error != null) { Log.e(TAG, "사용자 정보 요청 실패", error) }
-                        else if (user != null) { viewModel.makeMemberFromKakaoDB(user) }
+                        else if (user != null) {
+                            makeMemberFromKakaoDB(user)
+                            moveToStartActivity()
+                        }
                     }
                 }
             }
@@ -90,5 +98,26 @@ class MainActivity : AppCompatActivity() {
         } else {
             UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
         }
+    }
+
+    fun makeMemberFromKakaoDB(user: User) {
+        Log.i(TAG, "사용자 정보 요청 성공" +
+                "\n회원번호: ${user.id}" +
+                "\n이메일: ${user.kakaoAccount?.email}" +
+                "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+
+        val newMember = Member(user.kakaoAccount?.profile?.nickname ?: "default",
+            user.kakaoAccount?.email ?: "@.",
+            user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
+            0)
+
+        currentUser = newMember
+    }
+
+    fun moveToStartActivity() {
+        val nextIntent = Intent(this, StartActivity::class.java)
+        nextIntent.putExtra("currentUser",currentUser)
+        startActivity(nextIntent)
     }
 }

@@ -13,7 +13,6 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
     private val TAG = "MainViewModel"
 
     val QuizDataList = MutableLiveData<List<QuizData>>()
-    lateinit var CurrentUser: Member
     val errorMessage = MutableLiveData<String>()
 
     fun getAllQuizDatas() {
@@ -28,21 +27,6 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
                 Log.d(TAG, "response error, message : ${t.message}")
             }
         })
-    }
-
-    fun makeMemberFromKakaoDB(user: User) {
-        Log.i(TAG, "사용자 정보 요청 성공" +
-                "\n회원번호: ${user.id}" +
-                "\n이메일: ${user.kakaoAccount?.email}" +
-                "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
-
-        val newMember = Member(user.kakaoAccount?.profile?.nickname ?: "default",
-            user.kakaoAccount?.email ?: "@.",
-            user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
-            0)
-
-        CurrentUser = newMember
     }
 
 }
