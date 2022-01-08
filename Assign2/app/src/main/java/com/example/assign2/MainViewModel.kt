@@ -14,6 +14,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
 
     val QuizDataList = MutableLiveData<List<QuizData>>()
     val errorMessage = MutableLiveData<String>()
+    lateinit var currentUser: Member
 
     fun getAllQuizDatas() {
         val response = repository.getAllQuizDatas()

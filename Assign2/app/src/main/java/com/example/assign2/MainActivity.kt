@@ -23,22 +23,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mCallback: (OAuthToken?, Throwable?) -> Unit
 
-    lateinit var viewModel: MainViewModel
     lateinit var currentUser: Member
-
-    private val retrofitService = RetrofitService.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel =
-            ViewModelProvider(this, MyViewModelFactory(MainRepository(retrofitService))).get(
-                MainViewModel::class.java
-            )
-        viewModel.errorMessage.observe(this, Observer { })
-        viewModel.getAllQuizDatas()
         makeKakaoCallback()
 
         kakaoButton.setOnClickListener {

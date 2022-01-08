@@ -29,6 +29,7 @@ class StartActivity : AppCompatActivity() {
             ViewModelProvider(this, MyViewModelFactory(MainRepository(retrofitService))).get(
                 MainViewModel::class.java
             )
+        viewModel.currentUser = currentUser
         viewModel.errorMessage.observe(this, Observer { })
         viewModel.getAllQuizDatas()
 
