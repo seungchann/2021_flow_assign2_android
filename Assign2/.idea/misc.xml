@@ -10,8 +10,12 @@
         <entry key="..\:/Androidsdk/AndroidStudioProjects/2021_flow_assign2/Assign2/app/src/main/res/layout/fragment_quiz.xml" value="0.4" />
         <entry key="..\:/Androidsdk/AndroidStudioProjects/2021_flow_assign2/Assign2/app/src/main/res/layout/fragment_start.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29030797101449274" />
+        <entry key="app/src/main/res/layout/activity_start.xml" value="0.15507854462927662" />
         <entry key="app/src/main/res/layout/adapter_ost.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.28691398213136776" />
+        <entry key="app/src/main/res/layout/answer_dialog_layout.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.2280242734144928" />
+        <entry key="app/src/main/res/layout/fragment_ranking.xml" value="0.35167505328191623" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.13264775938262513" />
         <entry key="app/src/main/res/layout/radius.xml" value="0.21197916666666666" />
       </map>
     </option>
