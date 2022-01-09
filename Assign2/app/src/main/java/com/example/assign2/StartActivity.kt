@@ -3,6 +3,7 @@ package com.example.assign2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.assign2.RetrofitService.Companion.retrofitService
@@ -32,13 +33,15 @@ class StartActivity : AppCompatActivity() {
         viewModel.currentUser = currentUser
         viewModel.errorMessage.observe(this, Observer { })
         viewModel.getAllQuizDatas()
+        moveToFragment(StartFragment())
 
         Log.d(TAG, currentUser.nickName)
+    }
 
-        gameStartBtn.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.constraintLayout, QuizFragment())
-                .commit()
-        }
+    fun moveToFragment(frag: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, frag)
+            .addToBackStack(".StartActivity")
+            .commit()
     }
 }

@@ -15,7 +15,6 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.assign2.QuizFragment as QuizFragment
 
 class MainActivity : AppCompatActivity() {
 

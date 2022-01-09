@@ -1,51 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
-    <TextView
-        android:id="@+id/gameStartText"
-        android:layout_width="243dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/cafeshiningstar"
-        android:gravity="center"
-        android:text="OST 듣고 영화, 드라마 제목 맞히기 게임"
-        android:textColor="#000000"
-        android:textSize="38sp"
-        app:layout_constraintBottom_toTopOf="@+id/gameStartBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/gameStartBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="261dp"
-        android:fontFamily="@font/wandohopeb"
-        android:stateListAnimator="@null"
-        android:text="게임 시작"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/rankingCheckBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/wandohopeb"
-        android:stateListAnimator="@null"
-        android:text="랭킹 확인"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/gameStartBtn"
-        app:layout_constraintTop_toBottomOf="@+id/gameStartBtn" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
