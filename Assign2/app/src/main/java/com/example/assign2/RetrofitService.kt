@@ -12,6 +12,12 @@ interface RetrofitService {
     @GET("/QuizData/")
     fun getAllQuizDatas(): Call<List<QuizData>>
 
+    @GET("/Member/")
+    fun getAllMembers(): Call<List<Member>>
+
+    @POST("/Member/")
+    fun addMember(@Body member: Member): Call<Member>
+
     companion object {
         var retrofitService: RetrofitService? = null
         private val gson = GsonBuilder().setLenient().create()

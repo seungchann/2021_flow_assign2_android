@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.assign2.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -35,12 +36,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     lateinit var currentUser: Member
+    private val retrofitService = RetrofitService.getInstance()
+    lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         makeKakaoCallback()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
@@ -51,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         myButton.setOnClickListener {
             googleSignIn()
         }
+
+        viewModel = ViewModelProvider(this, LoginViewModelFactory(MainRepository(retrofitService))).get(LoginViewModel::class.java)
+        viewModel.errorMessage.observe(this, Observer { })
+        viewModel.getAllMembers()
     }
 
     private fun makeKakaoCallback() {
@@ -140,6 +148,7 @@ class MainActivity : AppCompatActivity() {
                 0)
 
             currentUser = newMember
+            checkCurrentUserFromDB()
             moveToStartActivity()
 
         } catch (e: ApiException) {
@@ -149,9 +158,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun checkCurrentUserFromDB() {
+        viewModel.memberList.observe(this, Observer {
+            val memberList: MutableList<Member> = it.toMutableList()
+            var hasMemberAccountOnDB: Boolean = false
+            memberList.forEach {
+                if (currentUser.email == it.email) {
+                    hasMemberAccountOnDB = true
+                    currentUser.highestScore = it.highestScore
+                }
+            }
+            if (!hasMemberAccountOnDB) {
+                Log.e("hasMemberAccountOnDB", "추가해야합니다")
+                viewModel.addMemeber(currentUser)
+            }
+        })
+    }
+
     fun moveToStartActivity() {
         val nextIntent = Intent(this, StartActivity::class.java)
         nextIntent.putExtra("currentUser",currentUser)
+        checkCurrentUserFromDB()
         startActivity(nextIntent)
     }
 }

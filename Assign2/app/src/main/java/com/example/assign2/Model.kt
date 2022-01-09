@@ -24,7 +24,7 @@ data class QuizData(
 )
 
 data class Member(
-    @SerializedName("nickname")
+    @SerializedName("nick_name")
     var nickName: String,
     @SerializedName("email")
     var email: String,
