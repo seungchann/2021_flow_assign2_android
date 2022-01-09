@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class QuizData(
     @SerializedName("id")
-    var id: Integer,
+    var id: Int,
     @SerializedName("song_title")
     var songTitle: String,
     @SerializedName("artist")
@@ -14,7 +14,7 @@ data class QuizData(
     @SerializedName("video_title")
     var video_title: String,
     @SerializedName("date")
-    var date: Integer,
+    var date: Int,
     @SerializedName("actor1")
     var actor1: String,
     @SerializedName("image")
