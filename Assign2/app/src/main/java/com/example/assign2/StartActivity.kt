@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.assign2.RetrofitService.Companion.retrofitService
@@ -42,6 +43,13 @@ class StartActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, frag)
             .addToBackStack(".StartActivity")
+            .commit()
+    }
+
+    fun moveToNextQuizFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, QuizFragment())
+            .addToBackStack(null)
             .commit()
     }
 }
