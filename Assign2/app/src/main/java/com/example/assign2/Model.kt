@@ -17,6 +17,16 @@ data class QuizData(
     var date: Int,
     @SerializedName("actor1")
     var actor1: String,
+    @SerializedName("actor2")
+    var actor2: String,
+    @SerializedName("actor3")
+    var actor3: String,
+    @SerializedName("profile_image1")
+    var profile_image1: String,
+    @SerializedName("profile_image2")
+    var profile_image2: String,
+    @SerializedName("profile_image3")
+    var profile_image3: String,
     @SerializedName("image")
     var image: String,
     @SerializedName("dialogue")

@@ -78,6 +78,8 @@ class QuizFragment : Fragment() {
         binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
 
         makeTestDatas()
+        viewModel.getAllQuizDatas()
+        println("QuizdataList out_of_listener: ${viewModel.QuizDataList.count()}")
 
         return binding.root
     }
@@ -91,14 +93,8 @@ class QuizFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
-        viewModel.getAllQuizDatas()
-//        viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
-//            Log.d(TAG, "onViewCreated: $it")
-//            // Update UI
-//            songTitleTextView.text = it.get(0).video_title
-//
-//        })
+//        Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
+
 
         soundPool = SoundPool.Builder()
             .setMaxStreams(3)
@@ -124,11 +120,31 @@ class QuizFragment : Fragment() {
     }
 
     fun makeTestDatas() {
-        testQuizDatas.add(QuizData(1, "첫눈처럼 너에게 가겠다", "에일리", "도깨비", 2016, "공유", "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png", "도깨비명대사"))
-        testQuizDatas.add(QuizData(2, "다시 난, 여기", "백예린", "사랑의 불시착", 2019, "현빈", "사랑의불시착이미지", "사랑의불시착명대사"))
+        testQuizDatas.add(QuizData(1, "첫눈처럼 너에게 가겠다",
+            "에일리",
+            "도깨비",
+            2016,
+            "공유",
+            "김고은",
+            "이동욱",
+            "",
+            "",
+            "",
+            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
+            "") )
+        testQuizDatas.add(QuizData(2, "내일",
+            "한희정",
+            "미생",
+            2015,
+            "공유",
+            "김고은",
+            "이동욱",
+            "",
+            "",
+            "",
+            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
+            "") )
     }
-
-
 
     fun setTurnTableButton() {
         binding.turnTableButton.setOnClickListener {
@@ -178,9 +194,6 @@ class QuizFragment : Fragment() {
         binding.submitButton.setOnClickListener{
             checkAnswer()
             setAnswerDialogView()
-
-            viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
-            })
         }
     }
 

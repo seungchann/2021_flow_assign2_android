@@ -12,7 +12,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
 
     private val TAG = "MainViewModel"
 
-    val QuizDataList = MutableLiveData<List<QuizData>>()
+    var QuizDataList = mutableListOf<QuizData>()
     val errorMessage = MutableLiveData<String>()
     lateinit var currentUser: Member
     var heartNumber: Int = 5
@@ -23,7 +23,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
         val response = repository.getAllQuizDatas()
         response.enqueue(object : Callback<List<QuizData>> {
             override fun onResponse(call: Call<List<QuizData>>, response: Response<List<QuizData>>) {
-                QuizDataList.postValue(response.body())
+                QuizDataList = response.body()?.toMutableList()!!
             }
 
             override fun onFailure(call: Call<List<QuizData>>, t: Throwable) {
