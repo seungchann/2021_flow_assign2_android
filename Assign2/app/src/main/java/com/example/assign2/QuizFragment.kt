@@ -30,8 +30,6 @@ class QuizFragment : Fragment() {
 
     var testQuizDatas = mutableListOf<QuizData>()
 
-    var isCorrect: Boolean = false
-
     // Hint 관련 변수
     var isClickedDisk1: Boolean = false
     var isClickedDisk2: Boolean = false
@@ -63,9 +61,11 @@ class QuizFragment : Fragment() {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         builder = AlertDialog.Builder(requireActivity())
         dialogView = layoutInflater.inflate(R.layout.answer_dialog_layout, null)
-        binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
-        makeTestDatas()
 
+        binding.heartImageView.setImageResource(setHeartImageFromHeartNumber(viewModel.heartNumber))
+        binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
+
+        makeTestDatas()
 
         return binding.root
     }
@@ -133,17 +133,9 @@ class QuizFragment : Fragment() {
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
             }
         }
-3
-        binding.submitButton.setOnClickListener{
-            if(isCorrect) {
 
-            } else {
-                if(viewModel.isGameOver()) {
-                    // game Over
-                } else {
-                    viewModel.updateHeartNumber()
-                }
-            }
+        binding.submitButton.setOnClickListener{
+            checkAnswer()
             setAnswerDialogView()
 
             viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
@@ -219,7 +211,6 @@ class QuizFragment : Fragment() {
         dialogNextButton.setOnClickListener {
             (activity as StartActivity).moveToNextQuizFragment(this)
         }
-
     }
 
     fun setAnswerDialogView() {
@@ -251,15 +242,16 @@ class QuizFragment : Fragment() {
         var artist = binding.artistTextView.text.toString()
         fun String.removeWhitespaces() = replace(" ", "")
 
+        var isCorrect: Boolean = (dialogSongTitleTextView.text as String).removeWhitespaces() == title.removeWhitespaces()
+                && (dialogArtistTitleTextView.text as String).removeWhitespaces() == artist.removeWhitespaces()
+
         // 오답인 경우
-        if((dialogSongTitleTextView.text as String).removeWhitespaces() != title.removeWhitespaces()
-            || (dialogActorTextView.text as String).removeWhitespaces() != artist.removeWhitespaces()
-        ){
-            answerTextView.text = "틀렸습니다."
+        if(!isCorrect){
+            dialogAnswerTextView.text = "틀렸습니다."
             dialogAnswerTextView.setTextColor(Color.parseColor("#B00E23"))
             viewModel.updateHeartNumber()
             Log.d("QF_HEART_NUM",viewModel.heartNumber.toString())
-            Glide.with(this).load(setHeartImageFromHeartNumber(viewModel.heartNumber)).into(binding.heartImageView)
+            binding.heartImageView.setImageResource(setHeartImageFromHeartNumber(viewModel.heartNumber))
         }
         else { // 정답인 경우
             viewModel.updateCorrectNumber()

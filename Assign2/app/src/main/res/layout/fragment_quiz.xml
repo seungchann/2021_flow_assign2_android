@@ -96,22 +96,22 @@
         app:layout_constraintTop_toBottomOf="@+id/diskButton2"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <TextView
+    <EditText
         android:id="@+id/songTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="첫눈처럼 너에게 가겠다. "
+        android:hint="OST 제목은?"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/turnTableButton" />
 
-    <TextView
+    <EditText
         android:id="@+id/artistTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="에일리"
+        android:hint="아티스트 이름은?"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/songTitleTextView" />
