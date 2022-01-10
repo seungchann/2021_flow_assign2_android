@@ -113,6 +113,7 @@ class QuizFragment : Fragment() {
         soundId = soundPool.load(activity as StartActivity, R.raw.fx_shadow, 1)
 
         setInitialDialogView()
+        setTurnTableButton()
         setButtons()
 
     }
@@ -127,23 +128,7 @@ class QuizFragment : Fragment() {
         testQuizDatas.add(QuizData(2, "다시 난, 여기", "백예린", "사랑의 불시착", 2019, "현빈", "사랑의불시착이미지", "사랑의불시착명대사"))
     }
 
-    fun setButtons() {
-        binding.diskButton1.setOnClickListener {
-            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_1)
-            isClickedDiskButton(1)
-            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
-        }
-        binding.diskButton2.setOnClickListener {
-            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_2)
-            isClickedDiskButton(2)
-            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
-        }
-        binding.diskButton3.setOnClickListener {
-            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_3)
-            isClickedDiskButton(3)
-            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
-        }
-
+    fun setTurnTableButton() {
         binding.turnTableButton.setOnClickListener {
             // lp안에 재생 버튼 누르면 재생
             val threeSecLimit = 3
@@ -182,6 +167,26 @@ class QuizFragment : Fragment() {
 //                viewModel.hintNumber = viewModel.hintNumber - getHintNumberFromClickedButton(isClickedDisk3)
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
             }
+        }
+    }
+
+    fun setButtons() {
+        binding.diskButton1.setOnClickListener {
+            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_1)
+            isClickedDiskButton(1)
+            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
+        }
+
+        binding.diskButton2.setOnClickListener {
+            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_2)
+            isClickedDiskButton(2)
+            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
+        }
+
+        binding.diskButton3.setOnClickListener {
+            binding.turnTableButton.setBackgroundResource(R.drawable.turntable_3)
+            isClickedDiskButton(3)
+            Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
         }
 
         binding.submitButton.setOnClickListener{
@@ -280,9 +285,6 @@ class QuizFragment : Fragment() {
                     } else {
                         (activity as StartActivity).moveToNextQuizFragment()
                     }
-
-                    // 새로운 quizFragment 생성
-                    Log.d("일단..", "positive")
                 }
             })
             .show()
