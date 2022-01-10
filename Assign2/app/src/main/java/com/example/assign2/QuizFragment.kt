@@ -36,7 +36,7 @@ class QuizFragment : Fragment() {
     var testQuizDatas = mutableListOf<QuizData>()
 
     // Hint 관련 변수
-    var isClickedDisk1: Boolean = false
+    var isClickedDisk1: Boolean = true
     var isClickedDisk2: Boolean = false
     var isClickedDisk3: Boolean = false
     var isUsedHint1: Boolean = false
@@ -110,7 +110,7 @@ class QuizFragment : Fragment() {
                 Toast.makeText(activity as StartActivity, "Gagal load", Toast.LENGTH_SHORT).show()
             }
         }
-        soundId = soundPool.load(activity as StartActivity, R.raw.fx_shadow, 1)
+        soundId = soundPool.load(activity as StartActivity, R.raw.snow, 1)
 
         setInitialDialogView()
         setTurnTableButton()
@@ -128,30 +128,14 @@ class QuizFragment : Fragment() {
         testQuizDatas.add(QuizData(2, "다시 난, 여기", "백예린", "사랑의 불시착", 2019, "현빈", "사랑의불시착이미지", "사랑의불시착명대사"))
     }
 
+
+
     fun setTurnTableButton() {
         binding.turnTableButton.setOnClickListener {
             // lp안에 재생 버튼 누르면 재생
-            val threeSecLimit = 3
-            val fiveSecLimit = 5
-            val sevenSecLimit = 7
 
-            if (spLoaded) {
-                if(playFlag == false){ // 재생되고 있지 않은 경우
-//                    binding.playBtn.setBackgroundResource(R.drawable.pause)
-                    playFlag = true
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    var second : Int = 0
-                    timer(period = 1000, initialDelay = 1000){
-                        second++
-                        if(second==3){
-                            pauseAudio()
-                            cancel()
-                        }
-                    }
-                }
-                else { // 재생되고 있는 경우
-                    pauseAudio()
-                }
+            if(isClickedDisk1) {
+                playMusicWithDuration(1)
             }
 
             if(isClickedDisk2) {
@@ -159,6 +143,7 @@ class QuizFragment : Fragment() {
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk2))
 //                viewModel.hintNumber = viewModel.hintNumber - getHintNumberFromClickedButton(isClickedDisk2)
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
+                playMusicWithDuration(3)
 
             }
             if(isClickedDisk3) {
@@ -166,6 +151,7 @@ class QuizFragment : Fragment() {
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk3))
 //                viewModel.hintNumber = viewModel.hintNumber - getHintNumberFromClickedButton(isClickedDisk3)
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
+                playMusicWithDuration(5)
             }
         }
     }
@@ -313,8 +299,25 @@ class QuizFragment : Fragment() {
         }
     }
 
-    fun resumeAudio(){
-        soundPool.autoResume()
+    fun playMusicWithDuration(sec: Int) {
+        if (spLoaded) {
+            if(playFlag == false){ // 재생되고 있지 않은 경우
+//                    binding.playBtn.setBackgroundResource(R.drawable.pause)
+                playFlag = true
+                soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                var second : Int = 0
+                timer(period = 1000, initialDelay = 1000){
+                    second++
+                    if(second==sec){
+                        pauseAudio()
+                        cancel()
+                    }
+                }
+            }
+            else { // 재생되고 있는 경우
+                pauseAudio()
+            }
+        }
     }
 
     fun pauseAudio(){
