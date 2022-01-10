@@ -2,6 +2,8 @@ package com.example.assign2
 
 import android.content.DialogInterface
 import android.graphics.Color
+import android.media.SoundPool
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
@@ -20,6 +24,7 @@ import com.example.assign2.databinding.FragmentQuizBinding
 import kotlinx.android.synthetic.main.answer_dialog_layout.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.actorImageView
+import kotlin.concurrent.timer
 
 class QuizFragment : Fragment() {
     private val TAG = "QuizFragment"
@@ -47,6 +52,13 @@ class QuizFragment : Fragment() {
     lateinit var dialogArtistTitleTextView: TextView
     lateinit var dialogAnswerTextView: TextView
     lateinit var dialogNextButton: Button
+
+    // SoundPool
+    private var playFlag = false
+
+    private lateinit var soundPool: SoundPool
+    private var soundId: Int = 0
+    private var spLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +88,7 @@ class QuizFragment : Fragment() {
         this
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
@@ -86,6 +99,18 @@ class QuizFragment : Fragment() {
 //            songTitleTextView.text = it.get(0).video_title
 //
 //        })
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(3)
+            .build()
+        soundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
+            if (status == 0) {
+                spLoaded = true
+            } else {
+                Toast.makeText(activity as StartActivity, "Gagal load", Toast.LENGTH_SHORT).show()
+            }
+        }
+        soundId = soundPool.load(activity as StartActivity, R.raw.fx_shadow, 1)
 
         setInitialDialogView()
         setButtons()
@@ -118,7 +143,32 @@ class QuizFragment : Fragment() {
             isClickedDiskButton(3)
             Log.d("isClicked","1: ${isClickedDisk1.toString()}, 2: ${isClickedDisk2.toString()}, 3: ${isClickedDisk3.toString()}")
         }
+
         binding.turnTableButton.setOnClickListener {
+            // lp안에 재생 버튼 누르면 재생
+            val threeSecLimit = 3
+            val fiveSecLimit = 5
+            val sevenSecLimit = 7
+
+            if (spLoaded) {
+                if(playFlag == false){ // 재생되고 있지 않은 경우
+//                    binding.playBtn.setBackgroundResource(R.drawable.pause)
+                    playFlag = true
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                    var second : Int = 0
+                    timer(period = 1000, initialDelay = 1000){
+                        second++
+                        if(second==3){
+                            pauseAudio()
+                            cancel()
+                        }
+                    }
+                }
+                else { // 재생되고 있는 경우
+                    pauseAudio()
+                }
+            }
+
             if(isClickedDisk2) {
                 Log.d("isHintUsed","2_click: ${isClickedDisk2.toString()}, 2_hint: ${isUsedHint1.toString()}, 3_click: ${isClickedDisk3.toString()}, 3_hint: ${isUsedHint2.toString()}")
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk2))
@@ -260,4 +310,15 @@ class QuizFragment : Fragment() {
             Log.d("맞은 개수", viewModel.correctNumber.toString())
         }
     }
+
+    fun resumeAudio(){
+        soundPool.autoResume()
+    }
+
+    fun pauseAudio(){
+//        binding.turnTableButton.setBackgroundResource(R.drawable.play_circle)
+        playFlag = false
+        soundPool.autoPause()
+    }
+
 }
