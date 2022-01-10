@@ -207,10 +207,6 @@ class QuizFragment : Fragment() {
         dialogSongTitleTextView = dialogView.findViewById<TextView>(R.id.dialogSongTitleTextView)
         dialogArtistTitleTextView = dialogView.findViewById<TextView>(R.id.dialogArtistTextView)
         dialogAnswerTextView = dialogView.findViewById<TextView>(R.id.answerTextView)
-        dialogNextButton = dialogView.findViewById<Button>(R.id.nextButton)
-        dialogNextButton.setOnClickListener {
-            (activity as StartActivity).moveToNextQuizFragment(this)
-        }
     }
 
     fun setAnswerDialogView() {
@@ -227,16 +223,22 @@ class QuizFragment : Fragment() {
         builder.setView(dialogView)
             .setPositiveButton("다음", object: DialogInterface.OnClickListener{
                 override fun onClick(p0: DialogInterface?, p1: Int) {
-                    (activity as StartActivity).moveToFragment(QuizFragment())
+                    if (viewModel.isGameOver()) {
+                        viewModel.heartNumber = 5
+                        viewModel.hintNumber = 5
+                        (activity as StartActivity).moveToFragment(StartFragment())
+                    } else {
+                        (activity as StartActivity).moveToNextQuizFragment()
+                    }
+
                     // 새로운 quizFragment 생성
                     Log.d("일단..", "positive")
                 }
-            } )
+            })
             .show()
     }
 
 
-    // 수정할 부분
     fun checkAnswer(){
         var title = binding.songTitleTextView.text.toString()
         var artist = binding.artistTextView.text.toString()

@@ -46,9 +46,9 @@ class StartActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun moveToNextQuizFragment(fragment: Fragment) {
-        var ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment)
+    fun moveToNextQuizFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, QuizFragment())
             .addToBackStack(null)
             .commit()
     }
