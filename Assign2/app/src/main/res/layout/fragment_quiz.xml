@@ -25,18 +25,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/turnTableImageView"
+    <Button
+        android:id="@+id/turnTableButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/turntable_1"
+        android:background="@drawable/turntable_1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/actorImageView" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImageView"
+        android:id="@+id/actorImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="10dp"
@@ -51,8 +51,8 @@
         android:layout_height="30dp"
         android:scaleType="centerCrop"
         android:src="@drawable/heart_5"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+        app:layout_constraintStart_toEndOf="@+id/actorImageView"
+        app:layout_constraintTop_toTopOf="@+id/actorImageView" />
 
     <ImageView
         android:id="@+id/hintImageView"
@@ -60,39 +60,39 @@
         android:layout_height="30dp"
         android:scaleType="centerCrop"
         android:src="@drawable/hint_5"
-        app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/actorImageView"
+        app:layout_constraintStart_toEndOf="@+id/actorImageView" />
 
-    <ImageButton
+    <Button
         android:id="@+id/diskButton1"
-        android:layout_width="110dp"
+        android:layout_width="70dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/disk_1"
-        app:layout_constraintDimensionRatio="1:0.6"
-        app:layout_constraintStart_toEndOf="@+id/turnTableImageView"
-        app:layout_constraintTop_toTopOf="@+id/turnTableImageView"
+        android:background="@drawable/disk_1"
+        android:scaleType="centerInside"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@+id/turnTableButton"
+        app:layout_constraintTop_toTopOf="@+id/turnTableButton"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
+    <Button
         android:id="@+id/diskButton2"
-        android:layout_width="110dp"
+        android:layout_width="70dp"
         android:layout_height="0dp"
+        android:background="@drawable/disk_2"
         android:scaleType="centerCrop"
-        android:src="@drawable/disk_2"
-        app:layout_constraintDimensionRatio="1:0.6"
-        app:layout_constraintStart_toEndOf="@+id/turnTableImageView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@+id/turnTableButton"
         app:layout_constraintTop_toBottomOf="@+id/diskButton1"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
+    <Button
         android:id="@+id/diskButton3"
-        android:layout_width="110dp"
+        android:layout_width="70dp"
         android:layout_height="0dp"
+        android:background="@drawable/disk_3"
         android:scaleType="centerCrop"
-        android:src="@drawable/disk_3"
-        app:layout_constraintDimensionRatio="1:0.6"
-        app:layout_constraintStart_toEndOf="@+id/turnTableImageView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@+id/turnTableButton"
         app:layout_constraintTop_toBottomOf="@+id/diskButton2"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -104,7 +104,7 @@
         android:text="첫눈처럼 너에게 가겠다. "
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/turnTableImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/turnTableButton" />
 
     <TextView
         android:id="@+id/artistTextView"

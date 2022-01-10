@@ -17,6 +17,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
     lateinit var currentUser: Member
     var heartNumber: Int = 5
     var hintNumber: Int = 5
+    var correctNumber: Int = 0 // 맞힌 개수
 
     fun getAllQuizDatas() {
         val response = repository.getAllQuizDatas()
@@ -42,12 +43,26 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
         }
     }
 
-    fun updateHintNumber() {
+    fun updateHintNumber(num: Int) {
         if (this.hintNumber < 0) {
             return
         } else {
-            this.hintNumber = this.hintNumber - 1
+            this.hintNumber = this.hintNumber - num
             Log.d(TAG, "HintnUmber: ${this.hintNumber}")
+            return
+        }
+    }
+
+    fun isGameOver(): Boolean {
+        return this.heartNumber == 0
+    }
+
+    fun updateCorrectNumber() {
+        // 추가 : DB한테 총 문제 개수 받아와서 총 문제 개수보다 맞은 개수가 크지 않도록 return 해줘야한다
+        if (this.correctNumber < 0) {
+            return
+        } else {
+            this.correctNumber = this.correctNumber + 1
             return
         }
     }
