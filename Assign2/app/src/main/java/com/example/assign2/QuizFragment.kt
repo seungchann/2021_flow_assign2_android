@@ -51,10 +51,11 @@ class QuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onViewCreated: $it")
             // Update UI
-            answerTextView.text = it.get(0).video_title
+            songTitleTextView.text = it.get(0).video_title
             Glide.with(this).load(viewModel.currentUser.profileURL).into(profileImageView)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
@@ -66,21 +67,9 @@ class QuizFragment : Fragment() {
         dialogView = layoutInflater.inflate(R.layout.answer_dialog_layout, null)
 
         setInitialDialog()
+        setButtons()
 
-        binding.submitBtn.setOnClickListener{
-            Glide.with(this).load(testQuizDatas[0].image).into(dialogImage)
-            dialogVideoTitle.text = answerTextView.text
-            dialogActor.text = testQuizDatas[0].actor1
-            dialogSongTitle.text = testQuizDatas[0].songTitle
-            dialogArtist.text = testQuizDatas[0].artist
 
-            builder.setView(dialogView)
-                // .setPositiveButton("다음", nextButtonClick)
-                .show()
-
-            viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
-            })
-        }
     }
 
     override fun onDestroyView() {
@@ -101,4 +90,58 @@ class QuizFragment : Fragment() {
         dialogSongTitle = dialogView.findViewById<TextView>(R.id.ostTitleText)
         dialogArtist = dialogView.findViewById<TextView>(R.id.artistText)
     }
+
+    fun setButtons() {
+        binding.diskButton1.setOnClickListener {
+            binding.turnTableImageView.setImageResource(R.drawable.turntable_1)
+        }
+        binding.diskButton2.setOnClickListener {
+            binding.turnTableImageView.setImageResource(R.drawable.turntable_2)
+        }
+        binding.diskButton3.setOnClickListener {
+            binding.turnTableImageView.setImageResource(R.drawable.turntable_3)
+        }
+
+        binding.submitButton.setOnClickListener{
+            Glide.with(this).load(testQuizDatas[0].image).into(dialogImage)
+            dialogVideoTitle.text = songTitleTextView.text
+            dialogActor.text = testQuizDatas[0].actor1
+            dialogSongTitle.text = testQuizDatas[0].songTitle
+            dialogArtist.text = testQuizDatas[0].artist
+
+            builder.setView(dialogView)
+                // .setPositiveButton("다음", nextButtonClick)
+                .show()
+
+            viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
+            })
+        }
+    }
+
+
+
+    fun setHeartImageFromHeartNumber(heartNum: Int): Int {
+        return when (heartNum) {
+            0 -> R.drawable.heart_0
+            1 -> R.drawable.heart_1
+            2 -> R.drawable.heart_2
+            3 -> R.drawable.heart_3
+            4 -> R.drawable.heart_4
+            5 -> R.drawable.heart_5
+            else -> R.drawable.heart_5
+        }
+    }
+
+    fun setHintImageFromHeartNumber(hintNum: Int): Int {
+        return when (hintNum) {
+            0 -> R.drawable.hint_0
+            1 -> R.drawable.hint_1
+            2 -> R.drawable.hint_2
+            3 -> R.drawable.hint_3
+            4 -> R.drawable.hint_4
+            5 -> R.drawable.hint_5
+            else -> R.drawable.hint_5
+        }
+    }
+
 }

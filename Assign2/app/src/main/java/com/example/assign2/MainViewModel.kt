@@ -15,6 +15,8 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
     val QuizDataList = MutableLiveData<List<QuizData>>()
     val errorMessage = MutableLiveData<String>()
     lateinit var currentUser: Member
+    var heartNumber: Int = 5
+    var hintNumber: Int = 5
 
     fun getAllQuizDatas() {
         val response = repository.getAllQuizDatas()
@@ -28,6 +30,26 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
                 Log.d(TAG, "response error, message : ${t.message}")
             }
         })
+    }
+
+    fun updateHeartNumber() {
+        if (this.heartNumber < 0) {
+            return
+        } else {
+            this.heartNumber = this.heartNumber - 1
+            Log.d(TAG,"HeartNumber: ${this.heartNumber}")
+            return
+        }
+    }
+
+    fun updateHintNumber() {
+        if (this.hintNumber < 0) {
+            return
+        } else {
+            this.hintNumber = this.hintNumber - 1
+            Log.d(TAG, "HintnUmber: ${this.hintNumber}")
+            return
+        }
     }
 
 }
