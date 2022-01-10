@@ -20,4 +20,8 @@
         android:fontStyle = "normal"
         android:fontWeight = "400"
         android:font = "@font/cafesurroundair"/>
+    <font
+        android:fontStyle = "normal"
+        android:fontWeight = "400"
+        android:font = "@font/delivery"/>
 </font-family>

@@ -7,13 +7,107 @@
     tools:context=".RankingFragment">
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/logoTextView"
+        android:layout_width="78dp"
+        android:layout_height="119dp"
+        android:text="오리지널\n사운드\n트랙을\n아시나요"
+        android:fontFamily="@font/delivery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Ranking"
-        android:stateListAnimator="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginCorporationTextView"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="사용자 이름"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+
+    <TextView
+        android:id="@+id/userEmailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="사용자이메일"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
+
+    <TextView
+        android:id="@+id/userNameBlueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user"
+        android:textColor="#001747"
+        android:fontFamily="@font/delivery"
+        app:layout_constraintEnd_toStartOf="@+id/maxTextView"
+        app:layout_constraintTop_toTopOf="@+id/maxTextView" />
+
+    <TextView
+        android:id="@+id/maxTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/delivery"
+        android:text="님, 최대로"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoTextView" />
+
+    <TextView
+        android:id="@+id/highestScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/delivery"
+        android:text="16"
+        android:textColor="#B00E23"
+        app:layout_constraintEnd_toStartOf="@+id/youGotItRightTextView"
+        app:layout_constraintTop_toTopOf="@+id/youGotItRightTextView" />
+
+    <TextView
+        android:id="@+id/youGotItRightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/delivery"
+        android:text="문제를 맞히셨군요"
+        app:layout_constraintEnd_toEndOf="@+id/maxTextView"
+        app:layout_constraintTop_toBottomOf="@+id/maxTextView" />
+
+    <Button
+        android:id="@+id/leavingMembershipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/delivery"
+        android:text="회원 탈퇴하기"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userEmailTextView" />
+
+    <TextView
+        android:id="@+id/loginCorporationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="KAKAO"
+        android:fontFamily="@font/delivery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/youGotItRightTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
