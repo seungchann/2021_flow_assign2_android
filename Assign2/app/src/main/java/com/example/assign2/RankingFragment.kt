@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.Glide
 import com.example.assign2.databinding.FragmentQuizBinding
 import com.example.assign2.databinding.FragmentRankingBinding
@@ -18,6 +20,7 @@ class RankingFragment : Fragment() {
     lateinit var viewModel: MainViewModel
     private var _binding : FragmentRankingBinding? = null
     private val binding get() = _binding!!
+    private val retrofitService = RetrofitService.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,17 @@ class RankingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranking, container, false)
+        _binding = FragmentRankingBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(getViewModelStoreOwner(), MyViewModelFactory(MainRepository(retrofitService))).get(MainViewModel::class.java)
+        return binding.root
     }
+
+    fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
+        requireActivity()
+    } catch (e: IllegalStateException) {
+        this
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setCurrentUserRanking()
