@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.answer_dialog_layout.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlin.concurrent.timer
 import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.lifecycle.ViewModel
 import de.hdodenhof.circleimageview.CircleImageView
 
 import kotlinx.android.synthetic.main.fragment_ranking.*
@@ -341,6 +342,7 @@ class QuizFragment : Fragment() {
                 // high-score 비교해서 업데이트
                 if (viewModel.correctNumber > viewModel.currentUser.highestScore) {
                     // query로 업데이트
+                    viewModel.currentUser.highestScore = viewModel.correctNumber
                 }
                 viewModel.correctNumber = 0
                 (activity as StartActivity).moveToFragment(StartFragment())
