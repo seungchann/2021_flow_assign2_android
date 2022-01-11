@@ -45,7 +45,8 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
     }
 
     fun updateHintNumber(num: Int) {
-        if (this.hintNumber < 0) {
+        if (this.hintNumber-2 < 0) {
+            this.hintNumber = this.hintNumber - 1
             return
         } else {
             this.hintNumber = this.hintNumber - num

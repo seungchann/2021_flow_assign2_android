@@ -22,8 +22,11 @@ import kotlinx.android.synthetic.main.answer_dialog_layout.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlin.concurrent.timer
 import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.lifecycle.ViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 import kotlinx.android.synthetic.main.fragment_ranking.*
+import org.w3c.dom.Text
 
 
 class QuizFragment : Fragment() {
@@ -49,7 +52,13 @@ class QuizFragment : Fragment() {
     lateinit var builder: AlertDialog.Builder
     lateinit var dialogImageView: ImageView
     lateinit var dialogVideoTitleTextView: TextView
+    lateinit var dialogDateTextView: TextView
+    lateinit var dialogActorImageView: CircleImageView
+    lateinit var dialogActorImageView2: CircleImageView
+    lateinit var dialogActorImageView3: CircleImageView
     lateinit var dialogActorTextView: TextView
+    lateinit var dialogActorTextView2: TextView
+    lateinit var dialogActorTextView3: TextView
     lateinit var dialogSongTitleTextView: TextView
     lateinit var dialogArtistTitleTextView: TextView
     lateinit var dialogAnswerTextView: TextView
@@ -102,8 +111,6 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         getCurrentQuizFromViewModel()
         // binding.songTitleTextView.imeOptions(EditorInfo.IME_ACTION_NEXT)
 
@@ -152,13 +159,43 @@ class QuizFragment : Fragment() {
                 Toast.makeText(activity as StartActivity, "Gagal load", Toast.LENGTH_SHORT).show()
             }
         }
-        soundId = soundPool.load(activity as StartActivity, R.raw.snow, 1)
+        soundId = soundPool.load(activity as StartActivity, getMusicFromTitle(currentQuizData.songTitle), 1)
 
         setInitialDialogView()
         setTurnTableButton()
         setButtons()
         setCurrentUserProfile()
+    }
 
+    fun getMusicFromTitle(title: String): Int {
+        return when(title) {
+            "첫눈처럼 너에게 가겠다" -> R.raw.iwillgotoyoulikethefirstsnow
+            "내일" -> R.raw.tomorrow
+            "만약에" -> R.raw.ift
+            "너의 모든 순간" -> R.raw.everymomentofyou
+            "두근두근" -> R.raw.pitapating
+            "나타나" -> R.raw.appear
+            "너와 나의 시간은" -> R.raw.ourtime
+            "시간을 거슬러" -> R.raw.backintime
+            "너였다면" -> R.raw.ifitisyou
+            "마음을 드려요" -> R.raw.giveyoumyheart
+            "흔들리는 꽃들 속에서 네 샴푸향이 느껴진거야" -> R.raw.yourshampooscentintheflowers
+            "그대를 잊는다는 건" -> R.raw.forgettingyou
+            "ALWAYS" -> R.raw.always
+            "괜찮아 사랑이야" -> R.raw.itsalrightitslove
+            "눈꽃" -> R.raw.snowonthebranches
+            "시작" -> R.raw.start
+            "모든 날, 모든 순간" -> R.raw.everydayeverymoment
+            "소녀" -> R.raw.alittlegirl
+            "미운사람" -> R.raw.hatefulperson
+            "묘해, 너와" -> R.raw.itsstrangewithyou
+            "어른" -> R.raw.adult
+            "내 손을 잡아" -> R.raw.holdmyhand
+            "기억해줘요 내 모든 날과 그때를" -> R.raw.rememeberme
+            "너에게" -> R.raw.toyou
+            "그대란 정원" -> R.raw.youaremygarden
+            else -> R.raw.iwillgotoyoulikethefirstsnow
+        }
     }
 
     override fun onDestroyView() {
@@ -171,21 +208,21 @@ class QuizFragment : Fragment() {
             // lp안에 재생 버튼 누르면 재생
 
             if(isClickedDisk1) {
-                playMusicWithDuration(1)
+                playMusicWithDuration(2)
             }
 
             if(isClickedDisk2) {
                 Log.d("isHintUsed","2_click: ${isClickedDisk2.toString()}, 2_hint: ${isUsedHint1.toString()}, 3_click: ${isClickedDisk3.toString()}, 3_hint: ${isUsedHint2.toString()}")
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk2))
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
-                playMusicWithDuration(3)
+                playMusicWithDuration(4)
 
             }
             if(isClickedDisk3) {
                 Log.d("isHintUsed","2_click: ${isClickedDisk2.toString()}, 2_hint: ${isUsedHint1.toString()}, 3_click: ${isClickedDisk3.toString()}, 3_hint: ${isUsedHint2.toString()}")
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk3))
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
-                playMusicWithDuration(5)
+                playMusicWithDuration(6)
             }
         }
     }
@@ -213,6 +250,11 @@ class QuizFragment : Fragment() {
             checkAnswer()
             setAnswerDialogView()
         }
+
+        if(viewModel.hintNumber < 1) {
+            binding.diskButton2.isEnabled = false
+            binding.diskButton3.isEnabled = false
+        }
     }
 
     fun setCurrentUserProfile() {
@@ -221,6 +263,7 @@ class QuizFragment : Fragment() {
         }
         Glide.with(this).load(viewModel.currentUser.profileURL).into(binding.quizProfileImageView)
         binding.profileNameTextView.text = viewModel.currentUser.nickName
+        binding.scoreTextView.text = viewModel.correctNumber.toString()
     }
 
     // Heart, Hint 이미지 연결 부분
@@ -233,7 +276,7 @@ class QuizFragment : Fragment() {
             3 -> R.drawable.heart_3
             4 -> R.drawable.heart_4
             5 -> R.drawable.heart_5
-            else -> R.drawable.heart_5
+            else -> R.drawable.heart_0
         }
     }
 
@@ -245,7 +288,7 @@ class QuizFragment : Fragment() {
             3 -> R.drawable.hint_3
             4 -> R.drawable.hint_4
             5 -> R.drawable.hint_5
-            else -> R.drawable.hint_5
+            else -> R.drawable.hint_0
         }
     }
 
@@ -283,7 +326,13 @@ class QuizFragment : Fragment() {
         alertDialog = builder.create()
         dialogImageView = dialogView.findViewById<ImageView>(R.id.dialogImageView)
         dialogVideoTitleTextView = dialogView.findViewById<TextView>(R.id.videoTitleTextView)
+        dialogDateTextView = dialogView.findViewById<TextView>(R.id.videoDateTextView)
         dialogActorTextView = dialogView.findViewById<TextView>(R.id.actorTextView)
+        dialogActorTextView2 = dialogView.findViewById<TextView>(R.id.actorTextView2)
+        dialogActorTextView3 = dialogView.findViewById<TextView>(R.id.actorTextView3)
+        dialogActorImageView = dialogView.findViewById<CircleImageView>(R.id.quizProfileImageView)
+        dialogActorImageView2 = dialogView.findViewById<CircleImageView>(R.id.actorImageView2)
+        dialogActorImageView3 = dialogView.findViewById<CircleImageView>(R.id.actorImageView3)
         dialogSongTitleTextView = dialogView.findViewById<TextView>(R.id.dialogSongTitleTextView)
         dialogArtistTitleTextView = dialogView.findViewById<TextView>(R.id.dialogArtistTextView)
         dialogAnswerTextView = dialogView.findViewById<TextView>(R.id.answerTextView)
@@ -292,6 +341,13 @@ class QuizFragment : Fragment() {
             if (viewModel.isGameOver()) {
                 viewModel.heartNumber = 5
                 viewModel.hintNumber = 5
+
+                // high-score 비교해서 업데이트
+                if (viewModel.correctNumber > viewModel.currentUser.highestScore) {
+                    // query로 업데이트
+                    viewModel.currentUser.highestScore = viewModel.correctNumber
+                }
+                viewModel.correctNumber = 0
                 (activity as StartActivity).moveToFragment(StartFragment())
             } else {
                 (activity as StartActivity).moveToNextQuizFragment()
@@ -306,8 +362,16 @@ class QuizFragment : Fragment() {
         val answerQuizData = currentQuizData
 
         Glide.with(this).load(answerQuizData.image).into(dialogImageView)
+        Glide.with(this).load(answerQuizData.profile_image1).into(dialogActorImageView)
+        Glide.with(this).load(answerQuizData.profile_image2).into(dialogActorImageView2)
+        Glide.with(this).load(answerQuizData.profile_image3).into(dialogActorImageView3)
+
         dialogVideoTitleTextView.text = answerQuizData.video_title
+        dialogDateTextView.text = "(${answerQuizData.date}년)"
         dialogActorTextView.text = answerQuizData.actor1
+        dialogActorTextView2.text = answerQuizData.actor2
+        dialogActorTextView3.text = answerQuizData.actor3
+
         dialogSongTitleTextView.text = answerQuizData.songTitle
         dialogArtistTitleTextView.text = answerQuizData.artist
 
@@ -315,14 +379,13 @@ class QuizFragment : Fragment() {
         alertDialog.show()
     }
 
-
     fun checkAnswer(){
         var title = binding.songTitleTextView.text.toString()
         var artist = binding.artistTextView.text.toString()
         fun String.removeWhitespaces() = replace(" ", "")
 
-        var isCorrect: Boolean = (dialogSongTitleTextView.text as String).removeWhitespaces() == title.removeWhitespaces()
-                && (dialogArtistTitleTextView.text as String).removeWhitespaces() == artist.removeWhitespaces()
+        var isCorrect: Boolean = (currentQuizData.songTitle).removeWhitespaces() == title.removeWhitespaces()
+                && (currentQuizData.artist).removeWhitespaces() == artist.removeWhitespaces()
 
         // 오답인 경우
         if(!isCorrect){
@@ -333,6 +396,8 @@ class QuizFragment : Fragment() {
             binding.heartImageView.setImageResource(setHeartImageFromHeartNumber(viewModel.heartNumber))
         }
         else { // 정답인 경우
+            dialogAnswerTextView.text = "정답입니다."
+            dialogAnswerTextView.setTextColor(Color.parseColor("#0056b9"))
             viewModel.updateCorrectNumber()
             Log.d("맞은 개수", viewModel.correctNumber.toString())
         }
