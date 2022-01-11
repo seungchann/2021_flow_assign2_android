@@ -1,11 +1,10 @@
 # 오리지널 사운드 트랙을 아시나요(오사트아)
-+ ### OST 짧게 듣고 곡 제목과 아티스트명을 맞히는 게임
+### OST 짧게 듣고 곡 제목과 아티스트명을 맞히는 게임
 
-<img src="https://user-images.githubusercontent.com/49242646/148938862-4d3eb6b1-3832-4d88-b704-d5240cc6984f.jpg" width="205" height="411"/>
-<img src="https://user-images.githubusercontent.com/49242646/148938889-33ec18a0-1cbd-4f5a-a902-4b9f7d5b695f.jpg" width="205" height="411"/>
+<img src="https://user-images.githubusercontent.com/49242646/148938862-4d3eb6b1-3832-4d88-b704-d5240cc6984f.jpg" width="205" height="411"/> <img src="https://user-images.githubusercontent.com/49242646/148938889-33ec18a0-1cbd-4f5a-a902-4b9f7d5b695f.jpg" width="205" height="411"/>
 <img src="https://user-images.githubusercontent.com/49242646/148938912-937ac36f-8ace-4d96-b567-3555a8a07fb9.jpg" width="205" height="411"/>
-<img src="https://user-images.githubusercontent.com/49242646/148938937-3fb03a6c-2b7f-4dcd-9053-04720f927291.jpg" width="205" height="411"/>
-<img src="https://user-images.githubusercontent.com/49242646/148938944-9712ad47-0f3e-4123-a284-8f6c13d4b242.jpg" width="205" height="411"/>
+
+<img src="https://user-images.githubusercontent.com/49242646/148938937-3fb03a6c-2b7f-4dcd-9053-04720f927291.jpg" width="205" height="411"/> <img src="https://user-images.githubusercontent.com/49242646/148938944-9712ad47-0f3e-4123-a284-8f6c13d4b242.jpg" width="205" height="411"/>
 
 ## A. 개발 팀원  
 - UNIST 컴퓨터공학과 김승찬
