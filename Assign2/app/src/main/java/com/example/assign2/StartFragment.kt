@@ -26,7 +26,7 @@ class StartFragment : Fragment() {
     ): View? {
         binding = FragmentStartBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(getViewModelStoreOwner(), MyViewModelFactory(MainRepository(retrofitService))).get(MainViewModel::class.java)
-        binding.gameStartText.text = viewModel.currentUser.highestScore.toString()
+//        binding.gameStartText.text = viewModel.currentUser.highestScore.toString()
 
         binding.gameStartButton.setOnClickListener {
             (activity as StartActivity).moveToFragment(QuizFragment())

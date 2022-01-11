@@ -7,45 +7,57 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".StartFragment">
 
-<TextView
-    android:id="@+id/gameStartText"
-    android:layout_width="243dp"
-    android:layout_height="0dp"
-    android:layout_marginBottom="64dp"
-    android:fontFamily="@font/cafeshiningstar"
-    android:gravity="center"
-    android:text="OST 듣고 영화, 드라마 제목 맞히기 게임"
-    android:textColor="#000000"
-    android:textSize="38sp"
-    app:layout_constraintBottom_toTopOf="@+id/gameStartButton"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_background" />
 
-<Button
-    android:id="@+id/gameStartButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="30dp"
-    android:layout_marginBottom="261dp"
-    android:fontFamily="@font/wandohopeb"
-    android:stateListAnimator="@null"
-    android:text="게임 시작"
-    android:textSize="20sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/gameStartText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:fontFamily="@font/delivery"
+        android:text="오리지널\n사운드\n트랙을\n아시나요"
+        android:textSize="45sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<Button
-    android:id="@+id/rankingCheckButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="30dp"
-    android:layout_marginTop="8dp"
-    android:fontFamily="@font/wandohopeb"
-    android:stateListAnimator="@null"
-    android:text="랭킹 확인"
-    android:textSize="20sp"
-    app:layout_constraintStart_toStartOf="@+id/gameStartButton"
-    app:layout_constraintTop_toBottomOf="@+id/gameStartButton" />
+    <Button
+        android:id="@+id/gameStartButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:background="#404040"
+        android:fontFamily="@font/delivery"
+        android:stateListAnimator="@null"
+        android:text="게임 시작"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/gameStartText"
+        app:layout_constraintStart_toStartOf="@+id/gameStartText"
+        app:layout_constraintTop_toBottomOf="@+id/gameStartText" />
+
+    <Button
+        android:id="@+id/rankingCheckButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#404040"
+        android:fontFamily="@font/delivery"
+        android:stateListAnimator="@null"
+        android:text="랭킹 확인"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/gameStartButton"
+        app:layout_constraintStart_toStartOf="@+id/gameStartButton"
+        app:layout_constraintTop_toBottomOf="@+id/gameStartButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
