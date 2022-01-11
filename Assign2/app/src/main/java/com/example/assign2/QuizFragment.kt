@@ -6,6 +6,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.util.Range
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class QuizFragment : Fragment() {
     private val retrofitService = RetrofitService.getInstance()
 
     var testQuizDatas = mutableListOf<QuizData>()
+    lateinit var currentQuizData: QuizData
 
     // Hint 관련 변수
     var isClickedDisk1: Boolean = true
@@ -77,11 +79,17 @@ class QuizFragment : Fragment() {
         binding.heartImageView.setImageResource(setHeartImageFromHeartNumber(viewModel.heartNumber))
         binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
 
-        makeTestDatas()
-        viewModel.getAllQuizDatas()
-        println("QuizdataList out_of_listener: ${viewModel.QuizDataList.count()}")
+        if (viewModel.QuizDataList.count() == 0) {
+            viewModel.getAllQuizDatas()
+        }
 
         return binding.root
+    }
+
+    fun getCurrentQuizFromViewModel() {
+        val randomNum = (0..viewModel.QuizDataList.count()).random()
+        this.currentQuizData = viewModel.QuizDataList[randomNum]
+        viewModel.QuizDataList.removeAt(randomNum)
     }
 
     fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
@@ -95,6 +103,7 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
 
+        getCurrentQuizFromViewModel()
 
         soundPool = SoundPool.Builder()
             .setMaxStreams(3)
@@ -119,32 +128,32 @@ class QuizFragment : Fragment() {
         _binding = null
     }
 
-    fun makeTestDatas() {
-        testQuizDatas.add(QuizData(1, "첫눈처럼 너에게 가겠다",
-            "에일리",
-            "도깨비",
-            2016,
-            "공유",
-            "김고은",
-            "이동욱",
-            "",
-            "",
-            "",
-            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
-            "") )
-        testQuizDatas.add(QuizData(2, "내일",
-            "한희정",
-            "미생",
-            2015,
-            "공유",
-            "김고은",
-            "이동욱",
-            "",
-            "",
-            "",
-            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
-            "") )
-    }
+//    fun makeTestDatas() {
+//        testQuizDatas.add(QuizData(1, "첫눈처럼 너에게 가겠다",
+//            "에일리",
+//            "도깨비",
+//            2016,
+//            "공유",
+//            "김고은",
+//            "이동욱",
+//            "",
+//            "",
+//            "",
+//            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
+//            "") )
+//        testQuizDatas.add(QuizData(2, "내일",
+//            "한희정",
+//            "미생",
+//            2015,
+//            "공유",
+//            "김고은",
+//            "이동욱",
+//            "",
+//            "",
+//            "",
+//            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
+//            "") )
+//    }
 
     fun setTurnTableButton() {
         binding.turnTableButton.setOnClickListener {
@@ -266,7 +275,7 @@ class QuizFragment : Fragment() {
     fun setAnswerDialogView() {
 
         // DB 연결 시에 변경해줘야 할 부분
-        val answerQuizData = testQuizDatas[0]
+        val answerQuizData = currentQuizData
 
         Glide.with(this).load(answerQuizData.image).into(dialogImageView)
         dialogVideoTitleTextView.text = answerQuizData.video_title

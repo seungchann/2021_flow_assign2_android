@@ -7,6 +7,7 @@ import com.kakao.sdk.user.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.awt.font.NumericShaper
 
 class MainViewModel constructor(private val repository: MainRepository) : ViewModel() {
 
