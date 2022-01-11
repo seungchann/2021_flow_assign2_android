@@ -1,21 +1,23 @@
 package com.example.assign2
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
@@ -25,6 +27,13 @@ import kotlinx.android.synthetic.main.answer_dialog_layout.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.actorImageView
 import kotlin.concurrent.timer
+import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 class QuizFragment : Fragment() {
     private val TAG = "QuizFragment"
@@ -91,6 +100,35 @@ class QuizFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // binding.songTitleTextView.imeOptions(EditorInfo.IME_ACTION_NEXT)
+
+        // 답 입력할 때 키보드 엔터 이벤트
+        binding.songTitleTextView
+            .setOnEditorActionListener{ textView, action, event ->
+            var handled = false
+            if (action == EditorInfo.IME_ACTION_DONE) {
+
+                handled = true
+            }
+            handled
+        }
+        binding.artistTextView
+            .setOnEditorActionListener{ textView, action, event ->
+                var handled = false
+                if (action == EditorInfo.IME_ACTION_DONE) {
+                    //fragment 키보드 내리기
+                    val mInputMethodManager = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    mInputMethodManager.hideSoftInputFromWindow(
+                        binding.artistTextView.getWindowToken(),
+                        0
+                    )
+                    checkAnswer()
+                    setAnswerDialogView()
+                    handled = true
+                }
+                handled
+            }
+
         Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
         viewModel.getAllQuizDatas()
 //        viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
@@ -327,3 +365,4 @@ class QuizFragment : Fragment() {
     }
 
 }
+
