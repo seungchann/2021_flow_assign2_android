@@ -111,8 +111,6 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         getCurrentQuizFromViewModel()
         // binding.songTitleTextView.imeOptions(EditorInfo.IME_ACTION_NEXT)
 
@@ -252,6 +250,11 @@ class QuizFragment : Fragment() {
             checkAnswer()
             setAnswerDialogView()
         }
+
+        if(viewModel.hintNumber < 1) {
+            binding.diskButton2.isEnabled = false
+            binding.diskButton3.isEnabled = false
+        }
     }
 
     fun setCurrentUserProfile() {
@@ -273,7 +276,7 @@ class QuizFragment : Fragment() {
             3 -> R.drawable.heart_3
             4 -> R.drawable.heart_4
             5 -> R.drawable.heart_5
-            else -> R.drawable.heart_5
+            else -> R.drawable.heart_0
         }
     }
 
@@ -285,7 +288,7 @@ class QuizFragment : Fragment() {
             3 -> R.drawable.hint_3
             4 -> R.drawable.hint_4
             5 -> R.drawable.hint_5
-            else -> R.drawable.hint_5
+            else -> R.drawable.hint_0
         }
     }
 
