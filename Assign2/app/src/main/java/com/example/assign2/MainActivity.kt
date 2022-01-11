@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(ApiException::class.java)
+            var account = completedTask.getResult(ApiException::class.java)
 
             Log.i(TAG, "사용자 정보 요청 성공" +
                     "\n이메일: ${account?.email.toString()}" +

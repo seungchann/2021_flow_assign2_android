@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dialogSongTitleTextView" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/actorImageView"
+        android:id="@+id/quizProfileImageView"
         android:layout_width="40dp"
         android:layout_height="0dp"
         android:layout_marginStart="60dp"
@@ -106,7 +106,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/actorImageView3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/actorImageView"
+        app:layout_constraintStart_toEndOf="@+id/quizProfileImageView"
         app:layout_constraintTop_toBottomOf="@+id/videoTitleTextView" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -130,9 +130,9 @@
         android:text="배우1"
         android:textAlignment="center"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/actorImageView"
-        app:layout_constraintStart_toStartOf="@+id/actorImageView"
-        app:layout_constraintTop_toBottomOf="@+id/actorImageView" />
+        app:layout_constraintEnd_toEndOf="@+id/quizProfileImageView"
+        app:layout_constraintStart_toStartOf="@+id/quizProfileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/quizProfileImageView" />
 
     <TextView
         android:id="@+id/actorTextView2"

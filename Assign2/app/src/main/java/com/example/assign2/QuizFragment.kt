@@ -1,14 +1,10 @@
 package com.example.assign2
 
-import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Color
 import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.util.Range
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,22 +14,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.Glide
 import com.example.assign2.databinding.FragmentQuizBinding
 import kotlinx.android.synthetic.main.answer_dialog_layout.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
-import kotlinx.android.synthetic.main.fragment_quiz.actorImageView
 import kotlin.concurrent.timer
 import android.content.Context.INPUT_METHOD_SERVICE
-import androidx.core.content.ContextCompat
 
-import androidx.core.content.ContextCompat.getSystemService
-
-
+import kotlinx.android.synthetic.main.fragment_ranking.*
 
 
 class QuizFragment : Fragment() {
@@ -111,7 +101,8 @@ class QuizFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
+
+
 
         getCurrentQuizFromViewModel()
         // binding.songTitleTextView.imeOptions(EditorInfo.IME_ACTION_NEXT)
@@ -143,7 +134,6 @@ class QuizFragment : Fragment() {
                 handled
             }
 
-        Glide.with(this).load(viewModel.currentUser.profileURL).into(actorImageView)
         viewModel.getAllQuizDatas()
 //        viewModel.QuizDataList.observe(viewLifecycleOwner, Observer {
 //            Log.d(TAG, "onViewCreated: $it")
@@ -167,6 +157,7 @@ class QuizFragment : Fragment() {
         setInitialDialogView()
         setTurnTableButton()
         setButtons()
+        setCurrentUserProfile()
 
     }
 
@@ -224,6 +215,13 @@ class QuizFragment : Fragment() {
         }
     }
 
+    fun setCurrentUserProfile() {
+        if (viewModel.currentUser.profileURL == "null") {
+            viewModel.currentUser.profileURL = "https://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg"
+        }
+        Glide.with(this).load(viewModel.currentUser.profileURL).into(binding.quizProfileImageView)
+        binding.profileNameTextView.text = viewModel.currentUser.nickName
+    }
 
     // Heart, Hint 이미지 연결 부분
 

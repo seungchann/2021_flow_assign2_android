@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profileNameTextView" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/actorImageView"
+        android:id="@+id/quizProfileImageView"
         android:layout_width="45dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
@@ -84,8 +84,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/heart_5"
         app:layout_constraintDimensionRatio="4:1"
-        app:layout_constraintStart_toEndOf="@+id/actorImageView"
-        app:layout_constraintTop_toTopOf="@+id/actorImageView" />
+        app:layout_constraintStart_toEndOf="@+id/quizProfileImageView"
+        app:layout_constraintTop_toTopOf="@+id/quizProfileImageView" />
 
     <ImageView
         android:id="@+id/hintImageView"
@@ -96,7 +96,7 @@
         android:src="@drawable/hint_5"
         app:layout_constraintBottom_toBottomOf="@+id/profileNameTextView"
         app:layout_constraintDimensionRatio="4:1"
-        app:layout_constraintStart_toEndOf="@+id/actorImageView" />
+        app:layout_constraintStart_toEndOf="@+id/quizProfileImageView" />
 
     <Button
         android:id="@+id/diskButton1"
@@ -182,8 +182,8 @@
         android:text="이름"
         android:textAlignment="center"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/actorImageView"
-        app:layout_constraintStart_toStartOf="@+id/actorImageView"
-        app:layout_constraintTop_toBottomOf="@+id/actorImageView" />
+        app:layout_constraintEnd_toEndOf="@+id/quizProfileImageView"
+        app:layout_constraintStart_toStartOf="@+id/quizProfileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/quizProfileImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
