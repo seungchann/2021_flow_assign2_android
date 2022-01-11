@@ -7,12 +7,13 @@ import com.kakao.sdk.user.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.awt.font.NumericShaper
 
 class MainViewModel constructor(private val repository: MainRepository) : ViewModel() {
 
     private val TAG = "MainViewModel"
 
-    val QuizDataList = MutableLiveData<List<QuizData>>()
+    var QuizDataList = mutableListOf<QuizData>()
     val errorMessage = MutableLiveData<String>()
     lateinit var currentUser: Member
     var heartNumber: Int = 5
@@ -23,7 +24,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
         val response = repository.getAllQuizDatas()
         response.enqueue(object : Callback<List<QuizData>> {
             override fun onResponse(call: Call<List<QuizData>>, response: Response<List<QuizData>>) {
-                QuizDataList.postValue(response.body())
+                QuizDataList = response.body()?.toMutableList()!!
             }
 
             override fun onFailure(call: Call<List<QuizData>>, t: Throwable) {
