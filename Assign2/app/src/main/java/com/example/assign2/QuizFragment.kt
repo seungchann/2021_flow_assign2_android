@@ -54,6 +54,7 @@ class QuizFragment : Fragment() {
     var isUsedHint2: Boolean = false
 
     // DialogView 선언
+    lateinit var alertDialog: AlertDialog
     lateinit var dialogView: View
     lateinit var builder: AlertDialog.Builder
     lateinit var dialogImageView: ImageView
@@ -174,33 +175,6 @@ class QuizFragment : Fragment() {
         _binding = null
     }
 
-//    fun makeTestDatas() {
-//        testQuizDatas.add(QuizData(1, "첫눈처럼 너에게 가겠다",
-//            "에일리",
-//            "도깨비",
-//            2016,
-//            "공유",
-//            "김고은",
-//            "이동욱",
-//            "",
-//            "",
-//            "",
-//            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
-//            "") )
-//        testQuizDatas.add(QuizData(2, "내일",
-//            "한희정",
-//            "미생",
-//            2015,
-//            "공유",
-//            "김고은",
-//            "이동욱",
-//            "",
-//            "",
-//            "",
-//            "https://user-images.githubusercontent.com/49242646/148649473-126d6aa1-a625-4e68-a461-c76f519c3852.png",
-//            "") )
-//    }
-
     fun setTurnTableButton() {
         binding.turnTableButton.setOnClickListener {
             // lp안에 재생 버튼 누르면 재생
@@ -212,7 +186,6 @@ class QuizFragment : Fragment() {
             if(isClickedDisk2) {
                 Log.d("isHintUsed","2_click: ${isClickedDisk2.toString()}, 2_hint: ${isUsedHint1.toString()}, 3_click: ${isClickedDisk3.toString()}, 3_hint: ${isUsedHint2.toString()}")
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk2))
-//                viewModel.hintNumber = viewModel.hintNumber - getHintNumberFromClickedButton(isClickedDisk2)
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
                 playMusicWithDuration(3)
 
@@ -220,7 +193,6 @@ class QuizFragment : Fragment() {
             if(isClickedDisk3) {
                 Log.d("isHintUsed","2_click: ${isClickedDisk2.toString()}, 2_hint: ${isUsedHint1.toString()}, 3_click: ${isClickedDisk3.toString()}, 3_hint: ${isUsedHint2.toString()}")
                 viewModel.updateHintNumber(getHintNumberFromClickedButton(isClickedDisk3))
-//                viewModel.hintNumber = viewModel.hintNumber - getHintNumberFromClickedButton(isClickedDisk3)
                 binding.hintImageView.setImageResource(setHintImageFromHintNumber(viewModel.hintNumber))
                 playMusicWithDuration(5)
             }
@@ -310,12 +282,24 @@ class QuizFragment : Fragment() {
     // DialogView 관련 코드
 
     fun setInitialDialogView() {
+        alertDialog = builder.create()
         dialogImageView = dialogView.findViewById<ImageView>(R.id.dialogImageView)
         dialogVideoTitleTextView = dialogView.findViewById<TextView>(R.id.videoTitleTextView)
         dialogActorTextView = dialogView.findViewById<TextView>(R.id.actorTextView)
         dialogSongTitleTextView = dialogView.findViewById<TextView>(R.id.dialogSongTitleTextView)
         dialogArtistTitleTextView = dialogView.findViewById<TextView>(R.id.dialogArtistTextView)
         dialogAnswerTextView = dialogView.findViewById<TextView>(R.id.answerTextView)
+        dialogNextButton = dialogView.findViewById<Button>(R.id.nextButton)
+        dialogNextButton.setOnClickListener {
+            if (viewModel.isGameOver()) {
+                viewModel.heartNumber = 5
+                viewModel.hintNumber = 5
+                (activity as StartActivity).moveToFragment(StartFragment())
+            } else {
+                (activity as StartActivity).moveToNextQuizFragment()
+            }
+            alertDialog.dismiss()
+        }
     }
 
     fun setAnswerDialogView() {
@@ -329,19 +313,8 @@ class QuizFragment : Fragment() {
         dialogSongTitleTextView.text = answerQuizData.songTitle
         dialogArtistTitleTextView.text = answerQuizData.artist
 
-        builder.setView(dialogView)
-            .setPositiveButton("다음", object: DialogInterface.OnClickListener{
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                    if (viewModel.isGameOver()) {
-                        viewModel.heartNumber = 5
-                        viewModel.hintNumber = 5
-                        (activity as StartActivity).moveToFragment(StartFragment())
-                    } else {
-                        (activity as StartActivity).moveToNextQuizFragment()
-                    }
-                }
-            })
-            .show()
+        alertDialog.setView(dialogView)
+        alertDialog.show()
     }
 
 
