@@ -7,8 +7,8 @@
 <img src="https://user-images.githubusercontent.com/49242646/148938937-3fb03a6c-2b7f-4dcd-9053-04720f927291.jpg" width="205" height="370"/> <img src="https://user-images.githubusercontent.com/49242646/148938944-9712ad47-0f3e-4123-a284-8f6c13d4b242.jpg" width="205" height="370"/>
 
 ## A. 개발 팀원  
-- UNIST 컴퓨터공학과 김승찬
-- 숙명여대 컴퓨터과학전공 최윤정
+- 김승찬
+- 최윤정
 
 ## B. 개발 환경
 - OS: Android(minSdk: 21, targetSdk: 31)
